@@ -23,21 +23,19 @@ public class Main {
         } finally {
             String inputLine, outPutLine;
             final BufferedReader in;
-            final PrintWriter out;
+            final OutputStream out;
 
             try {
                 if(clientSocket != null ) {
                     in = new BufferedReader(
                             new InputStreamReader(clientSocket.getInputStream())
                     );
-                    out = new PrintWriter(
-                            clientSocket.getOutputStream(), true
-                    );
+                    out = clientSocket.getOutputStream();
 
                     while((inputLine = in.readLine()) != null) {
                         int count = inputLine.split("\n").length;
                         for (int i = 0; i < count; i++) {
-                            out.print("+PONG\r\n");
+                            out.write("+PONG\r\n".getBytes());
                         }
                     }
                 }
