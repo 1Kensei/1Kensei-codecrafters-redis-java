@@ -34,7 +34,7 @@ public class Main {
 
                     while((inputLine = in.readLine()) != null) {
                         int count = inputLine.split("\n").length;
-                        for (int i = 0; i < count; i++) {
+                        for (int i = 0; i < count-1; i++) {
                             out.write("+PONG\r\n".getBytes());
                         }
                     }
