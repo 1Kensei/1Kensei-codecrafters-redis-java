@@ -32,8 +32,9 @@ public class Main {
                     );
                     out = clientSocket.getOutputStream();
 
-                    while((inputLine = in.readLine()) != null) {
+                    while((inputLine = in.readLine()).contains("PING")) {
                         out.write("+PONG\r\n".getBytes());
+                        out.flush();
                     }
                 }
             } catch (IOException e) {
