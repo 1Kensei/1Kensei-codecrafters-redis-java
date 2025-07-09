@@ -33,12 +33,10 @@ public class Main {
                     out = clientSocket.getOutputStream();
 
                     while((inputLine = in.readLine()) != null) {
-                        int count = inputLine.split("\n").length;
-                        System.out.println(count);
-                        for (int i = 0; i < count; i++) {
+                        if ("PING".equals(inputLine)) {
                             out.write("+PONG\r\n".getBytes());
+                            out.flush();
                         }
-                        out.flush();
                     }
                 }
             } catch (IOException e) {
