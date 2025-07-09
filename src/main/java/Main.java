@@ -1,5 +1,4 @@
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -22,12 +21,25 @@ public class Main {
         } catch (IOException e) {
             System.out.println("IOException: " + e.getMessage());
         } finally {
+            String inputLine, outPutLine;
+            final BufferedReader in;
+            final PrintWriter out;
+
             try {
-                final OutputStream outputStream;
-                if (clientSocket != null) {
-                    outputStream = clientSocket.getOutputStream();
-                    outputStream.write("+PONG\r\n".getBytes());
-                    clientSocket.close();
+                if(clientSocket != null ) {
+                    in = new BufferedReader(
+                            new InputStreamReader(clientSocket.getInputStream())
+                    );
+                    out = new PrintWriter(
+                            clientSocket.getOutputStream(), true
+                    );
+
+                    while((inputLine = in.readLine()) != null) {
+                        int count = inputLine.split("\n").length;
+                        for (int i = 0; i < count; i++) {
+                            out.print("+PONG\r\n");
+                        }
+                    }
                 }
             } catch (IOException e) {
                 System.out.println("IOException: " + e.getMessage());
