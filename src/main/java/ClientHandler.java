@@ -36,7 +36,6 @@ public class ClientHandler implements Runnable{
                 if (inputLine.equals("PING")) {
                     try {
                         bufferedWriter.write("+PONG\r\n");
-                        bufferedWriter.newLine();
                         bufferedWriter.flush();
                     } catch (IOException e) {
                         try {
