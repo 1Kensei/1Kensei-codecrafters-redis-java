@@ -18,7 +18,7 @@ public class Main {
             // ensures that we don't run into 'Address already in use' errors
             serverSocket.setReuseAddress(true);
             // Wait for connection from client.
-            while (serverSocket.isClosed()) {
+            while (!serverSocket.isClosed()) {
                 clientSocket = serverSocket.accept();
                 threadPool.submit(new ClientHandler(clientSocket));
             }
