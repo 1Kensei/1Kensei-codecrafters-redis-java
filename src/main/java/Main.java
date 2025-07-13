@@ -14,8 +14,7 @@ public class Main {
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             serverSocket.setReuseAddress(true);
             while (true) {
-                Socket clientSocket = serverSocket.accept();
-                threadPool.submit(new ClientHandler(clientSocket));
+                threadPool.submit(new ClientHandler(serverSocket.accept()));
             }
         } catch (IOException e) {
             System.out.println("IOException: " + e.getMessage());

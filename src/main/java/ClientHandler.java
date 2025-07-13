@@ -23,7 +23,7 @@ public class ClientHandler implements Runnable{
         try {
             String inputLine = "";
             while ((inputLine = bufferedReader.readLine())!=null) {
-                if (inputLine.equals("PING")) {
+                if (inputLine.startsWith("PING")) {
                     bufferedWriter.write("+PONG\r\n");
                     bufferedWriter.flush();
                 }
@@ -31,6 +31,7 @@ public class ClientHandler implements Runnable{
                     bufferedReader.readLine();
                     String line = bufferedReader.readLine();
                     bufferedWriter.write(String.format("$%d\r\n%s\r\n", line.length(), line));
+                    bufferedWriter.flush();
                 }
             }
             socket.close();
