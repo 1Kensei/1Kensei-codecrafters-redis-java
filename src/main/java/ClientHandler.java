@@ -1,7 +1,10 @@
 import java.io.*;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ClientHandler implements Runnable{
+    private Map<String, String> map = new HashMap<>();
 
     private Socket socket;
     private BufferedReader bufferedReader;
@@ -31,6 +34,25 @@ public class ClientHandler implements Runnable{
                     bufferedReader.readLine();
                     String line = bufferedReader.readLine();
                     bufferedWriter.write(String.format("$%d\r\n%s\r\n", line.length(), line));
+                    bufferedWriter.flush();
+                } else if (inputLine.toUpperCase().startsWith("SET"))  {
+                    bufferedReader.readLine();
+                    String key = bufferedReader.readLine();
+                    bufferedReader.readLine();
+                    String value = bufferedReader.readLine();
+                    map.put(key,value);
+                    bufferedWriter.write("+OK\r\n");
+                    bufferedWriter.flush();
+                }
+                else if (inputLine.toUpperCase().startsWith("GET")) {
+                    bufferedReader.readLine();
+                    String key = bufferedReader.readLine();
+                    if(map.containsKey(key)) {
+                        bufferedWriter.write(String.format("$%d\r\n%s\r\n", map.get(key).length(), map.get(key)));
+                    }
+                    else {
+                        bufferedWriter.write("$-1\r\n");
+                    }
                     bufferedWriter.flush();
                 }
             }
