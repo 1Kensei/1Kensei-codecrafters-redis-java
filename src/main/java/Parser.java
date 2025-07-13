@@ -51,8 +51,8 @@ public class Parser {
         return parsedArr;
     }
 
-    public static void main(String[] args) {
-        CommandHandler commandHandler = new CommandHandler();
-        System.out.println(commandHandler.handle(new Parser().parse("*2\r\n$4\r\necHO\r\n$3\r\nASDASD\r\n")));
-    }
+//    public static void main(String[] args) {
+//        CommandHandler commandHandler = new CommandHandler();
+//        System.out.println(commandHandler.handle(new Parser().parse("*2\r\n$4\r\necHO\r\n$3\r\nASDASD\r\n")));
+//    }
 }
