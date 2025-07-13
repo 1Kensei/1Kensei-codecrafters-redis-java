@@ -27,7 +27,7 @@ public class ClientHandler implements Runnable{
                     bufferedWriter.write("+PONG\r\n");
                     bufferedWriter.flush();
                 }
-                else if ("ECHO".equalsIgnoreCase(inputLine)) {
+                else if (inputLine.toUpperCase().startsWith("ECHO")) {
                     bufferedReader.readLine();
                     String line = bufferedReader.readLine();
                     bufferedWriter.write(String.format("$%d\r\n%s\r\n", line.length(), line));
