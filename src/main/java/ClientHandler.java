@@ -20,32 +20,22 @@ public class ClientHandler implements Runnable{
 
     @Override
     public void run() {
-        String inputLine = "";
-        while (socket.isConnected()) {
-            while(true) {
-                try {
-                    if ((inputLine = bufferedReader.readLine()) == null) break;
-                } catch (IOException e) {
-                    try {
-                        socket.close();
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                }
-
+        try {
+            String inputLine = "";
+            while ((inputLine = bufferedReader.readLine())!=null) {
                 if (inputLine.equals("PING")) {
-                    try {
-                        bufferedWriter.write("+PONG\r\n");
-                        bufferedWriter.flush();
-                    } catch (IOException e) {
-                        try {
-                            socket.close();
-                        } catch (IOException ex) {
-                            throw new RuntimeException(ex);
-                        }
-                    }
+                    bufferedWriter.write("+PONG\r\n");
+                    bufferedWriter.flush();
+                }
+                else if ("ECHO".equalsIgnoreCase(inputLine)) {
+                    bufferedReader.readLine();
+                    String line = bufferedReader.readLine();
+                    bufferedWriter.write(String.format("$%d\r\n%s\r\n", line.length(), line));
                 }
             }
+            socket.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
