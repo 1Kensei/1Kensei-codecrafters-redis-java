@@ -40,7 +40,7 @@ public class CommandDispatcher {
         String value = args[2];
 
         storage.put(key, value);
-        if (args.length >= 4 &&"px".equalsIgnoreCase(args[3])) {
+        if (args.length >= 5 &&"px".equalsIgnoreCase(args[3])) {
             long expiryTime = Long.parseLong(args[4]);
             scheduledExecutorService.schedule(() -> storage.remove(key), expiryTime, TimeUnit.MILLISECONDS);
         }
