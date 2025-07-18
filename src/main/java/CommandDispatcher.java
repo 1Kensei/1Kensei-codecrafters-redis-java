@@ -49,11 +49,13 @@ public class CommandDispatcher {
     }
 
     private String handleGetCommand(String[] args) {
-        String key = args[1];
-        if(storage.containsKey(key)){
-            return handleBulkString(storage.get(key));
+        if (args.length < 2) {
+            return "-ERR wrong number of arguments for GET\r\n";
         }
-        else {
+        String key = args[1];
+        if (storage.containsKey(key)) {
+            return handleBulkString(storage.get(key));
+        } else {
             return "$-1\r\n";
         }
     }
