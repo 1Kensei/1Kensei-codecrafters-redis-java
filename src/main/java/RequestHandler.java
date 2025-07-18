@@ -4,7 +4,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
 public class RequestHandler {
-    public static String readLine(InputStream input) throws IOException {
+    public String readLine(InputStream input) throws IOException {
 
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
         int b;
@@ -21,7 +21,7 @@ public class RequestHandler {
         return buffer.toString(StandardCharsets.UTF_8);
     }
 
-    public static String[] parseRespCommand(InputStream input) throws IOException {
+    public String[] parseRespCommand(InputStream input) throws IOException {
 
         String firstLine = readLine(input);
 

@@ -18,9 +18,10 @@ public class ClientHandler implements Runnable{
     }
     @Override
     public void run() {
+        RequestHandler requestHandler = new RequestHandler();
         CommandDispatcher commandDispatcher = new CommandDispatcher();
         try {
-            bufferedWriter.write(commandDispatcher.dispatch(RequestHandler.parseRespCommand(socket.getInputStream())));
+            bufferedWriter.write(commandDispatcher.dispatch(requestHandler.parseRespCommand(socket.getInputStream())));
             bufferedWriter.flush();
             socket.close();
         } catch (IOException e) {
